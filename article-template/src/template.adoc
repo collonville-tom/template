@@ -1,0 +1,55 @@
+= template                            
+Collonville Thomas                                     
+Version 0.1.0, --/--/2020                                              
+
+[quote, Robert Heinlein]
+When one teach, two learn
+
+:sectnums:                                                          
+:toc:                                                           
+:toclevels: 4                                                       
+:toc-title: Plan                                              
+:description: Document de presentation de template                              
+:keywords: template                                                 
+:imagesdir: ./img       
+:source-highlighter: pygments
+:pygments-style: emacs
+:icons: font
+:nofooter:
+
+ifeval::["{backend}"=="html5"]
+:article:
+endif::[]
+ifeval::["{backend}"=="pdf"]
+:article:
+endif::[]
+ifeval::["{backend}"=="revealjs"]
+:presentation:
+endif::[]
+
+
+
+== Introduction
+
+
+ifdef::article[]
+
+TODO
+
+endif::[]
+
+ifdef::presentation[]
+
+TODO
+
+endif::[]
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu1804"
+  config.vm.hostname = "vm-template"
+  config.vm.network "public_network", :dev => "eno2", :mode => 'bridge', mac: "52:54:00:B2:14:8E", use_dhcp_assigned_default_route: true
+  config.vm.provider "libvirt" do |vb|
+    vb.memory = "1000"
+    vb.cpus = "1"
+  end
+end
