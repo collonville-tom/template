@@ -14,6 +14,8 @@
     <artifactId>tc-asciidoctor-html-parent</artifactId>
     <version>0.2.0</version>
   </parent>
+  <!--Attention compatible qu'avec maven utilisant Java 8 -->
+    <!-- mvn clean process-resources -s settings.xml-->
   <build>
     <plugins>
       <plugin>
