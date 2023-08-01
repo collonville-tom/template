@@ -1,0 +1,175 @@
+
+server:
+  max-http-header-size: 16KB
+  servlet:
+    context-path: /
+  forward-headers-strategy: NATIVE
+  port: 8080
+
+
+spring:
+  application:
+    name: causeway-template
+  jackson:
+    serialization:
+      write-empty-json-arrays: false
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+    fallback-to-system-locale: true
+  quartz:
+    job-store-type: memory
+  banner:
+    location: banner.txt
+  flyway:
+    enabled: false
+  data:
+    mongodb:
+      uri: mongodb://mongo:pwd@causeway-template-mongo:27017/database
+
+
+# note that properties under 'datanucleus' must use camelCase rather than kebab-case
+datanucleus:
+  #Multithreaded: true
+  connectionURL: "mongodb://mongo:pwd@causeway-template-mongo/database"
+  storeManagerType: mongodb
+  schema:
+    autoCreateAll: true
+    validateTables: true
+    validateConstraints: true
+    generate-database:
+      mode: create
+  persistenceByReachabilityAtCommit: false
+  identifier:
+    case: MixedCase
+  cache:
+    level1:
+      type: soft
+    level2:
+      type: none
+      mode: ENABLE_SELECTIVE
+
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
+      logging: sysout
+
+
+management:
+  endpoint:
+    health:
+      enabled: true
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    mongo:
+      command:
+        enabled: false
+      connectionpool:
+        enabled: false
+
+
+endpoints:
+  web:
+    base-path: /
+  enabled: true
+
+resteasy:
+  authentication:
+    #strategy-class-name: classFullName
+  jaxrs:
+    app:
+      registration: beans
+    defaultPath: "/restful"
+
+causeway:
+  applib:
+    annotation:
+      action:
+        explicit: true
+        command-publishing: all
+        execution-publishing: all
+      action-layout:
+        css-class:
+          patterns:
+            delete.*:btn-danger,
+            discard.*:btn-warning,
+            remove.*:btn-warning
+      property:
+        command-publishing: all
+        execution-publishing: all
+      domain-object:
+        editing: false
+        entity-change-publishing: all
+        auditing: all
+        publishing: all
+  core:
+    meta-model:
+      introspector:
+        lock-after-full-introspection: true
+        policy: encapsulation_enabled
+      validator:
+        allow-deprecated: false
+        no-params-only: true
+        explicit-object-type: true
+
+    runtime-services:
+      translation:
+        po:
+          mode: disabled
+  persistence:
+    schema:
+      create-schema-sql-template: CREATE SCHEMA IF NOT EXISTS %s
+      auto-create-schemas: simple,causewayExtSecman,causewayExtAuditTrail,causewayExtCommandLog,causewayExtExecutionLog,causewayExtExecutionOutbox,causewayExtSessionLog
+
+
+  viewer:
+    common:
+      application:
+        about: Causeway Template
+        brand-logo-signin: images/apache-causeway/logo-banner-591x120.png
+        brand-logo-header: images/apache-causeway/logo-65x48.png
+        favicon-url: images/favicon.png
+        menubars-layout-file: menubars.layout.xml
+        name: Causeway Template
+        # https://stackoverflow.com/a/38983935/56880
+        version: ^project.version^
+      credit:
+        - url:  https://causeway.apache.org
+          image: images/apache-causeway/logo-65x48.png
+          name: Apache Causeway
+    wicket:
+      css: css/application.css
+      js: scripts/application.js
+
+      bookmarked-pages:
+        show-chooser: true
+        show-drop-down-on-footer: true
+
+      max-title-length-in-standalone-tables: 0
+      max-title-length-in-parented-tables: 0
+
+      themes:
+        show-chooser: true
+
+      table:
+        decoration:
+          data-tables-net:
+            options: "info: false, pagingType: 'numbers'"
+
+  testing:
+    fixtures:
+      fixture-scripts-specification:
+        context-class: domainapp.webapp.application.fixture.scenarios.DomainAppDemo
+        run-script-default: domainapp.webapp.application.fixture.scenarios.DomainAppDemo
+        recreate: domainapp.webapp.application.fixture.scenarios.DomainAppDemo
+        non-persisted-objects-strategy: persist
+        multiple-execution-strategy: execute
+#      initial-script: domainapp.webapp.application.fixture.scenarios.DomainAppDemo
+
+
+

@@ -1,0 +1,74 @@
+version: "3"
+services:
+
+  causeway-template-webapp-mongo:
+    container_name: causeway-template-webapp-mongo
+    build:
+      context: ./causeway-template-webapp
+    image: causeway-template-webapp:latest
+    environment:
+      JAR_NAME: causeway-template-webapp-0.0.1-SNAPSHOT-exec.jar
+      APP_YML_NAME: application-mongo-docker.yml
+    depends_on:
+      - causeway-template-mongo
+    expose:
+      - "8080"
+    ports:
+      - "8081:8080"
+    volumes:
+      - "./log/causeway-template-app-mongo:/tmp"
+
+  causeway-template-webapp-postgres:
+    container_name: causeway-template-webapp-postgres
+    build:
+      context: ./causeway-template-webapp
+    image: causeway-template-webapp:latest
+    environment:
+      JAR_NAME: causeway-template-webapp-0.0.1-SNAPSHOT-exec.jar
+      APP_YML_NAME: application-postgres-docker.yml
+    depends_on:
+          - causeway-template-postgres
+    expose:
+      - "8080"
+    ports:
+      - "8082:8080"
+    volumes:
+      - "./log/causeway-template-app-postgres:/tmp"
+
+  causeway-template-mongo:
+    container_name: causeway-template-mongo
+    image: bitnami/mongodb:4.4.3
+    volumes:
+      - "./mongo/data:/bitnami/mongodb/data"
+      - "./mongo/conf:/docker-entrypoint-initdb.d"
+    environment:
+      - MONGODB_USERNAME=mongo
+      - MONGODB_PASSWORD=pwd
+      - MONGODB_DATABASE=database
+    ports:
+      - "27017:27017"
+
+  causeway-template-psql-patch:
+    container_name: causeway-template-psql
+    image: alpine:latest
+    extra_hosts:
+      - "host.docker:172.16.212.4"
+    volumes:
+      - "./postgres/sql.script:/tmp"
+      - "./log/hashPatch:/var/log"
+    entrypoint: [ "/bin/sh", "-c", "while true; do sleep 1; done" ]
+
+  causeway-template-postgres:
+    container_name: causeway-template-postgres
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - "./postgres/sql.script:/tmp"
+    #      - "/var/lib/postgresql/data"
+    expose:
+      - "5432"
+    ports:
+      - "5433:5432"
