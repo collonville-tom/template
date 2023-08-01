@@ -61,9 +61,7 @@ import domainapp.webapp.quartz.QuartzModule;
 
         CausewayModuleExtSessionLogPersistenceJdo.class,
         CausewayModuleExtAuditTrailPersistenceJdo.class,
-        CausewayModuleExtCommandLogPersistenceJdo.class,
-        CausewayModuleExtExecutionLogPersistenceJdo.class,
-        CausewayModuleExtExecutionOutboxPersistenceJdo.class,
+
 
         CausewayModuleExtExcelDownloadWicketUi.class,
         CausewayModuleExtFullCalendarWicketUi.class,
