@@ -1,0 +1,45 @@
+= Template       
+:customcss: template-pres.css                                                      
+Version 0.1.0, 26/10/2020                                              
+
+ 
+:sectnums:                                                          
+:toc:                                                           
+:toclevels: 4                                                       
+:toc-title: Plan                                            
+:description: Document de presentation template                          
+:keywords: template                                                 
+:imagesdir: ./img       
+:source-highlighter: pygments
+:pygments-style: emacs
+:icons: font
+:nofooter:
+
+ifeval::["{backend}"=="html5"]
+:article:
+endif::[]
+ifeval::["{backend}"=="pdf"]
+:article:
+endif::[]
+ifeval::["{backend}"=="revealjs"]
+:presentation:
+endif::[]
+
+ifdef::presentation[]
+
+== Un slide chapitre
+
+
+
+=== Un slide sous chapitre
+
+
+
+endif::[]
+
+
+
+
+
+
+
